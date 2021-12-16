@@ -1,0 +1,459 @@
+<html>
+	<head>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<link rel="stylesheet" href="datashristyles.css">
+		<link rel="canonical" href="datashri.com/covid19_india_growth_rate.html" />
+		<link rel="icon" href="favicon.ico" >
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width">
+		<meta name="description" content="Daily growth of COVID19 cases in India and daily compounded growth rate, with animated graphs." />
+
+		<meta property="og:url"                content="http://datashri.com/covid19_india_growth_rate.html" />
+		<meta property="og:type"               content="article" />
+		<meta property="og:image"               content="http://datashri.com/covid19_india_growth_rate.png" />
+		<meta property="og:title"              content="Rate of growth of COVID-19 cases in India" />
+		<meta property="og:description"        content="Daily growth of COVID19 cases in India and daily compounded growth rate, with animated graphs." />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:site:id" content="@arunnanda" />
+		<meta name="twitter:creator" content="@arunnanda" />
+		<meta name="twitter:title" content="Rate of growth of COVID-19 cases in India" />
+		<meta name="twitter:description" content="Daily growth of COVID19 cases in India and daily compounded growth rate, with animated graphs." />
+		<meta name="twitter:image" content="http://datashri.com/covid19_india_growth_rate.png" />
+
+
+
+		<script>
+			google.charts.load('current', {'packages':['corechart']});
+			google.charts.setOnLoadCallback(drawTotals);
+			google.charts.setOnLoadCallback(drawD1s);
+
+			function drawTotals(){
+				var data = [];
+
+				//initial state
+				var rowData0;
+				function resetRowData0(){
+					rowData0 = new google.visualization.DataTable();
+					rowData0.addColumn('string', 'Date');
+					rowData0.addColumn('number', 'Total number of cases');
+					rowData0.addColumn('number', 'Daily increase in cases');
+
+					rowData0.addRow(['5-Mar',14,1]);
+					data[0] = rowData0;
+				}
+				resetRowData0();
+
+				//final state
+				var rowData1 = [
+					['Date', 'Total number of cases', 'Daily increase in cases'],
+					['5-Mar',14,1],['6-Mar',15,3],['7-Mar',18,5],['8-Mar',23,7],['9-Mar',30,12],['10-Mar',42,2],['11-Mar',44,13],['12-Mar',57,7],['13-Mar',64,3],['14-Mar',67,26],['15-Mar',93,4],['16-Mar',97,16],['17-Mar',113,13],['18-Mar',126,22],['19-Mar',148,43],['20-Mar',191,53],['21-Mar',244,75],['22-Mar',319,75],['23-Mar',394,57],['24-Mar',451,68],['25-Mar',519,83],['26-Mar',602,75],['27-Mar',677,149],['28-Mar',826,105],['29-Mar',931,274],['30-Mar',1205,154],['31-Mar',1359,239],['1-Apr',1598,471],['2-Apr',2069,401],['3-Apr',2470,432],['4-Apr',2902,675],['5-Apr',3577,704],['6-Apr',4281,508],['7-Apr',4789,485],['8-Apr',5274,,]
+				];
+				data[1] = google.visualization.arrayToDataTable(rowData1);
+
+				var options = {
+					//orientation: "vertical",
+					isStacked: true,
+					title:'Total number of reported cases of COVID-19 in India and daily increase ',
+					legend: { position: "in" },
+					width: "80%",
+					height: "80vh",
+
+					chartArea: {
+						width: '70%'
+						//top: 80,
+						//height: '50%'
+					},
+					vAxis: {
+						gridlines: {
+							count: 5
+						},
+						title: "",
+						viewWindowMode:'explicit',
+						viewWindow: {
+							//max:800,
+							//min:8
+						}
+					},
+					hAxis: {
+						title: "Date",
+						showTextEvery:2,
+						textPosition: 'out',
+						slantedText:true,
+						slantedTextAngle:90 // here you can even use 180
+					},
+					seriesType: "bars",
+					//series: {1: {type: "line"}},
+					animation:{
+						startup: true,
+						duration: 1000,
+						easing: 'out'
+					},
+				};
+				var current=0;
+				// Create and draw the visualization.
+				var chart = new google.visualization.ComboChart(document.getElementById('totals_chart'));
+				var button = document.getElementById('totals_button');
+				function drawChart(counter) {
+					google.visualization.events.addListener(chart, 'ready',
+					function() {
+						totals_chart_png.innerHTML = '<img src="' + chart.getImageURI() + '" alt="Bar chart of total COVID19 cases adn daily growth rate, in India">';
+						hidePng("totals_chart_png");
+						showButton("totals_button_show");
+						hideButton("totals_button_hide");
+					});
+					chart.draw(data[counter], options);
+				}
+				drawChart(1);
+
+				function delay(ms) {
+					  return new Promise(resolve => setTimeout(resolve, ms))
+				}
+				button.onclick = async function(){
+				    current = 0;
+					chart.clearChart();
+					drawChart(0);
+					button.disabled = true;
+
+					while (current < rowData1.length - 2 ) {
+						where = rowData0.getNumberOfRows();
+						rowData0.insertRows(where, [rowData1[current + 2]]);
+						current = (current + 1 );
+						drawChart(0);
+						await delay(300);
+					}
+				   resetRowData0();
+				   button.disabled = false;
+
+				}
+			}
+
+			function drawD1s(){
+				var data = [];
+
+				//initial state
+				var rowData0;
+				function resetRowData0(){
+					rowData0 = new google.visualization.DataTable();
+					rowData0.addColumn('string', 'Date');
+					rowData0.addColumn('number', 'Daily Growth %');
+					rowData0.addColumn('number', 'Compounded daily growth since March 5');
+
+					rowData0.addRow( ['5-Mar',0.166666666666667,,]);
+					data[0] = rowData0;
+				}
+				resetRowData0();
+
+				//final state
+				var rowData1 = [
+					['Date', 'Daily Growth %', 'Compounded daily growth since March 5' ],
+					['5-Mar',0.166666666666667,0],['6-Mar',0.0714285714285714,0.0714285714285714],['7-Mar',0.2,0.133893419027682],['8-Mar',0.277777777777778,0.179958138622476],['9-Mar',0.304347826086957,0.20989673502444],['10-Mar',0.4,0.245730939615517],['11-Mar',0.0476190476190476,0.210284412995333],['12-Mar',0.295454545454545,0.22209984374345],['13-Mar',0.12280701754386,0.209223259542277],['14-Mar',0.046875,0.190007341749433],['15-Mar',0.388059701492537,0.208468936139261],['16-Mar',0.043010752688172,0.192400513582894],['17-Mar',0.164948453608247,0.190088341304143],['18-Mar',0.115044247787611,0.184140594988857],['19-Mar',0.174603174603175,0.183456789897096],['20-Mar',0.290540540540541,0.190310748898413],['21-Mar',0.277486910994764,0.195580606989923],['22-Mar',0.307377049180328,0.201883875387171],['23-Mar',0.235109717868339,0.203706081670743],['24-Mar',0.144670050761421,0.200524352262059],['25-Mar',0.150776053215078,0.197986615999924],['26-Mar',0.159922928709056,0.196146054732433],['27-Mar',0.124584717607973,0.192796599711162],['28-Mar',0.220088626292467,0.193970415101577],['29-Mar',0.127118644067797,0.191107342655288],['30-Mar',0.294307196562836,0.195072795963513],['31-Mar',0.127800829875519,0.192412700557125],['1-Apr',0.175864606328182,0.191795675309103],['2-Apr',0.294743429286608,0.195327396200626],['3-Apr',0.193813436442726,0.195275158744415],['4-Apr',0.174898785425101,0.194590286521781],['5-Apr',0.232598208132323,0.195797857909025],['6-Apr',0.196812971764048,0.195829567180476],['7-Apr',0.118663863583275,0.193414796777501],['8-Apr',0.101273752349133,0.190597760911939]
+				];
+				data[1] = google.visualization.arrayToDataTable(rowData1);
+
+				var formatter = new google.visualization.NumberFormat({pattern: '0.00%'});
+				formatter.format(data[0], 1);
+				formatter.format(data[0], 2);
+				formatter.format(data[1], 1);
+				formatter.format(data[1], 2);
+
+				var options = {
+
+					title:'1. Daily percentage growth and 2. Compounded daily percentage growth in total number of reported cases of COVID-19 in India ',
+					legend: { position: "in" },
+					width: "80%",
+					height: "80vh",
+
+					chartArea: {
+						width: '70%'
+						//top: 80,
+						//height: '50%'
+					},
+					vAxis: {
+						format: 'percent',
+						gridlines: {
+							count: 5
+						},
+						title: "Growth rate of reported cases",
+						viewWindowMode:'explicit',
+						viewWindow: {
+							//max:800,
+							//min:8
+						}
+					},
+					hAxis: {
+						title: "Date",
+						showTextEvery:2,
+						textPosition: 'out',
+						slantedText:true,
+						slantedTextAngle:90 // here you can even use 180
+					},
+					seriesType: "bars",
+					series: {1: {type: "line"}},
+					animation:{
+						startup: true,
+						duration: 1000,
+						easing: 'out'
+					},
+				};
+
+				var current=0;
+				// Create and draw the visualization.
+				var chart = new google.visualization.ComboChart(document.getElementById('d1s_chart'));
+				var button = document.getElementById('d1s_button');
+				function drawChart(counter) {
+					google.visualization.events.addListener(chart, 'ready',
+					function() {
+						d1s_chart_png.innerHTML = '<img src="' + chart.getImageURI() + '" alt="Bar chart of daily percentage growth and daily compounded growth rate of COVID19 cases in India">';
+						hidePng("d1s_chart_png");
+						showButton("d1s_button_show");
+						hideButton("d1s_button_hide");
+					});
+					chart.draw(data[counter], options);
+				}
+				drawChart(1);
+
+				function delay(ms) {
+					  return new Promise(resolve => setTimeout(resolve, ms))
+				}
+				button.onclick = async function(){
+				    current = 0;
+					chart.clearChart();
+					drawChart(0);
+					button.disabled = true;
+
+					while (current < rowData1.length - 2 ) {
+						where = rowData0.getNumberOfRows();
+						rowData0.insertRows(where, [rowData1[current + 2]]);
+						current = (current + 1 );
+						drawChart(0);
+						await delay(400);
+					}
+				   resetRowData0();
+				   button.disabled = false;
+
+				}
+			}
+
+			function hidePng(pngDivId){
+				document.getElementById(pngDivId).style.display="none";
+			}
+
+			function showPng(pngDivId){
+				document.getElementById(pngDivId).style.display="block";
+			}
+
+			function showButton(buttonId){
+				document.getElementById(buttonId).style.display="block";
+			}
+
+			function hideButton(buttonId){
+				document.getElementById(buttonId).style.display="none";
+			}
+
+		</script>
+
+		<title>Rate of growth of COVID-19 cases in India</title>
+	</head>
+
+	<body>
+		<header>
+			<img class="top_logo" src="datashri.png" alt="datashri logo" align="left" onclick="window.open('/')" >
+			<a href="/">
+				DataShri - Viewing India, via data 
+			</a>
+			<hr>
+		</header>
+
+		<h1>Rate of growth of COVID-19 cases in India</h1>
+
+		<p>
+		Date: 27 March 2020<br>
+		Last update: 08 April 2020 <br>
+		</p>
+
+		<div class="intro_points"></div>
+		<div class="intro_text">
+			By 8 April 2020, India has more than 5000 COVID19 infections reported. 
+			As of 02 April, the number of reported COVID19 infections in India had crossed 2000. 
+			About 3 weeks back, this number was about 200. 
+			Between 01 March and 02 April, the number of infections have doubled roughly every 4-5 days. In the days between April 5 - April 8, the growth somewhat slowed down. 
+			<br>
+			<br>
+		
+			This is typical in epidemics - the number of infections grows exponentially before starting to gradually plateau. 
+			This is one of the reasons it is common to model the number of infections with a <a href="https://en.wikipedia.org/wiki/Sigmoid_function">sigmoid curve</a> (as illustrated below) 
+		</div>
+				<figure>
+					<img src="sigmoid.png" alt="Sigmoid curve example - researchgate.net" title="Sigmoid curve example" width="360">
+					<figcaption>
+						<a href="https://www.researchgate.net/profile/Tali_Leibovich-Raveh/publication/325868989/figure/fig2/AS:639475206074368@1529474178211/A-Basic-sigmoid-function-with-two-parameters-c1-and-c2-as-commonly-used-for-subitizing.png">Sigmoid curve example</a>
+					</figcaption>
+				</figure>
+		<br>
+		<div class="intro_text">
+			As can be seen in the illustration above, sigmoidal curves can have different degrees of steepness and can plateau off at various levels too.
+			The varying levels of steepness and levels of plateauing off are modelled by the parameters of the sigmoid curve - with each set of parameters representing a certain steepness and plateau.
+			It is still too early to match the COVID19 infections in India with a specific set of parameters. 
+			Since the infection is still in its early stages, the future rate of growth is still unknown. 
+			<br>
+			<br>
+			Left entirely unchecked, it can rise exponentially till it has infected everyone. 
+			If measures are taken to curb the spread of the infection, it can indeed start to plateau off earlier. 
+			This is the biggest motivation behind the lockdowns imposed as a preventive measure in various places throughout the world.
+			<br>
+			<br>
+			To be sure, in the very long term, the infection will get to everyone - just like the common cold or the flu or seasonal viral fevers.
+			The idea is to slow down the current rate of growth to a level that the healthcare system can actually handle. 
+			Since the Indian public healthcare system is not as well funded or furnished as in some other places, it is prudent to impose preventive measures earlier on than in other places.
+		</div>
+		<br>
+		<br>
+		<div class="intro_text">
+			Below we look at figures demonstrating the number of COVID19 cases in India as well as details of the rate of growth.
+		</div>
+		<br>
+		<br>
+		<div id="data_sources" class="intro_text">
+			Data on the number of COVID-19 cases in each state is taken from:
+				<li>
+					<a href="https://www.mohfw.gov.in">the Ministry of Health and Family Welfare website</a> since 22 March.
+				</li>
+				<li>
+					Collated from various online media sources and tweets before 22 March. 
+				</li>
+		</div>
+		<br>
+		<div class="warning">
+			<b>DISCLAIMER:</b>
+			<br>
+			The quality of the information, graphics, analyses presented depends on the quality of the underlying data. 
+			Most importantly, it depends on the scale of testing, detection, and reporting of infections. 
+			The information on this page is presented on an as-is basis, with no guarantees of accuracy and it <b>should not</b> be used for making predictions about the future. 
+		</div>
+		<br>
+		<div id="total_results_div" class="graphics_results">
+			<h4>Total number of COVID19 cases in India (Indian nationals only) on a daily basis starting March 5 </h4>
+			<p class="chart_intro">
+			</p>
+
+			<div class="intro_text">
+				The chart below shows the cumulative daily total in blue bars. The number of new cases reported in the subsequent 24 hours is shown in red bars stacked on top of the blue bars. 
+
+			</div>
+			
+			<div id="totals_chart" style="height:70vh; width:90vw;">
+			</div>
+
+			<button class="button_png" id="totals_button">Animate!</button>
+			<br>
+			<br>
+			<button class="button_png" id="totals_button_show" type=button onclick="
+					showPng('totals_chart_png');
+					hideButton('totals_button_show');
+					showButton('totals_button_hide');
+				">Show downloadable image</button>
+
+			<button class="button_png" id="totals_button_hide" type=button onclick="
+					hidePng('totals_chart_png');
+					hideButton('totals_button_hide');
+					showButton('totals_button_show');
+				">Hide downloadable image</button>
+
+
+			<div id="totals_chart_png">
+			</div>
+
+			<div class="bullet_list">
+				<p>
+					<li>Through the month of February, the number of reported cases was 2-3, it started increasing from March.</li>
+					<li>On March 5, there were 14 reported cases.</li>
+					<li>In the next 4 days, the number almost doubled to 30, on March 9. </li>
+					<li>In the next 4 days, the number almost doubled again to 64, on March 13. </li>
+					<li>In the next 5 days, it more than doubled to 126, on March 18.</li>
+					<li>In the next 7 days, it almost tripled to 394, on March 23.</li>
+					<li>In the next 5 days, it more than doubled to 826, on March 28.</li>
+					<li>In the next 4 days, it almost doubled to 1600, on April 1.</li>
+					<li>In the next 4 days, it more than doubled to 3500, on April 5.</li>
+					<br>
+
+					<br>
+					This clearly indicates a rapidly increasing growth rate. Touch or hover over the individual bars to get the number for each day. 
+					Eyeballing the graph indicates rapid growth, but we also want to look at the actual growth figures to get a better idea. 
+					<br>
+					<br>
+					The following figure looks at some details of the daily percentage growth. 
+				</p>
+			</div>
+		</div>
+
+		<div id="d1_results_div" class="graphics_results">
+			<h4>Daily growth rate and Compounded daily growth rate of number of COVID19 cases in India (Indian nationals only) starting March 5 </h4>
+			<p class="chart_intro">
+				<ul>The figure below shows: 
+					<br>
+					<ol>
+					<li>The daily percentage growth - from one day to the next, in blue bars. </li>
+					<li>The compounded daily growth rate from the starting point till each day, in the red line. </li>
+					</ol>
+				</ul>
+				<ul>Since the daily rate can fluctuate (sometimes significantly), the compounded rate can be helpful in giving a better overall picture of the situation. This <i>compounded daily growth rate</i> for a given day is calculated as follows: 
+					<ul>
+						N<sub>i</sub> = N<sub>0</sub>(1 + R<sub>i</sub>)<sup>i</sup>
+
+					</ul>
+					<ul>
+					<li><i>i</i> is the number of days since the starting point in this analysis (March 5)</li>
+					<li>R<sub>i</sub> is the <i>compounded daily growth rate</i> from N<sub>0</sub> till N<sub>i</sub></li>
+					<li>N<sub>i</sub> is the Number of cases on the i<sup>th</sup> day</li>
+					<li>N<sub>0</sub> is the Number of cases on the 0<sup>th</sup > day (i.e. on March 5)</li>
+					</ul>
+				</ul>
+			</p>
+			
+			<div id="d1s_chart" style="height:70vh; width:90vw;">
+			</div>
+			<button class="button_png" id="d1s_button">Animate!</button>
+			<br>
+			<br>
+			<button class="button_png" id="d1s_button_show" type=button onclick="
+					showPng('d1s_chart_png');
+					hideButton('d1s_button_show');
+					showButton('d1s_button_hide');
+				">Show downloadable image</button>
+
+			<button class="button_png" id="d1s_button_hide" type=button onclick="
+					hidePng('d1s_chart_png');
+					hideButton('d1s_button_hide');
+					showButton('d1s_button_show');
+				">Hide downloadable image</button>
+
+
+
+			<div id="d1s_chart_png">
+			</div>
+
+			<div class="bullet_list">
+				<p>
+					<li>The chart show the growth rate increasing significantly in the initial days, and then fluctuating for the next days, and it appears to fall into a stable pattern in the last few days. </li>
+					<li>The drastic fluctuations in the daily growth rate illustrate the significance of looking at the daily compounded growth rate. </li>
+					<br>
+					<li>The compounded daily growth rate appears to become stable at around 20% over the last few days.</li>
+					<li>This <b>does not</b> mean it will stay stable.</li>
+					<li>Even if it does stay stable around the 20% mark, <u><b>a daily compounded growth rate of around 20% can very quickly lead to a bad situation - with numbers doubling every four days</b></u></li>
+				</p>
+			</div>
+		</div>
+
+		<footer>
+			<hr>
+			&copy 2020: 
+			All content on these pages is the intellectual property of the creators and may not be reproduced without attribution. 
+			All data sources used herein are publicly available.			
+			We look forward to your comments, criticism, suggestions, or ideas for new topics you want us to cover.  
+			You can write to us at <b>admin</b> at this domain name.
+		</footer>
+	</body>
+
+
+</html>

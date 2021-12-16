@@ -1,0 +1,712 @@
+<html>
+	<head>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<link rel="stylesheet" href="datashristyles.css">
+		<link rel="icon" href="http://datashri.com/favicon.ico?v=2" >
+		<link rel="canonical" href="datashri.com/indian_states_government_hospitals.html" />
+		<link rel="stylesheet" href="datashristyles.css">
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width">
+		<meta name="description" content="Level of government hospital beds in Indian states, relative to various factors such as Net State Domestic Product, per capita income, state population, public health expense, shown with bar charts" />
+
+		<script>
+			google.charts.load('current', {'packages':['corechart']});
+			google.charts.setOnLoadCallback(drawNsdp);
+			google.charts.setOnLoadCallback(drawPerCapita)
+			google.charts.setOnLoadCallback(drawPopulation);
+			google.charts.setOnLoadCallback(drawExpense);
+			google.charts.setOnLoadCallback(drawRatio);
+
+			function drawNsdp(){
+				var data = new google.visualization.arrayToDataTable([
+					['State', 'Number of hospital beds', 'NSDP in crores' ],
+					['Andaman & Nicobar Islands',1075,5025],['Mizoram',1997,10136],['Sikkim',1560,13318],['Arunachal Pradesh',2404,15410],['Nagaland',1880,16137],['Manipur',1427,16189],['Puducherry',3569,21776],['Meghalaya',4457,21838],['Chandigarh',778,25061],['Tripura',4417,27484],['Goa',3013,36290],['Jammu & Kashmir',11651,83217],['Himachal Pradesh',12399,88196],['Uttarakhand',8512,142628],['Assam',17142,178479],['Jharkhand',10784,198386],['Chhattisgarh',9412,211016],['Odisha',18519,282322],['Punjab',17933,332999],['Bihar',12019,345571],['Haryana',11240,395890],['Madhya Pradesh',28839,429896],['Delhi',24,447435],['Telangana',20983,462636],['Andhra Pradesh ',23138,469909],['Kerala',38004,473045],['Rajasthan',31848,554783],['West Bengal',78566,728974],['Gujarat',32280,789949],['Karnataka',70165,843918],['Uttar Pradesh',76260,925437],['Tamil Nadu',77532,970953],['Maharashtra',51446,1572037]
+				]);
+
+				var options = {
+					title:'Number of hospital beds relative to Net State Domestic Product (NSDP)',
+					legend: { position: "top" },
+					//height: '100vh',
+
+					chartArea: {
+						//width: '90%'
+						top: 50,
+						height: '30%'
+					},
+
+					series: {
+						0: {targetAxisIndex: 0},
+						1: {targetAxisIndex: 1}
+					},
+
+					vAxes: {
+						0: {
+							title: 'Number of hospital beds',
+							gridlines: {
+								count: 5
+							}
+						},
+						1: {
+							title: 'NSDP in crores',
+							gridlines: {
+								count: 5
+							}
+					}
+
+					},
+
+
+					hAxis: {
+						showTextEvery:1,
+						textPosition: 'out',
+						slantedText:true,
+						slantedTextAngle:90 // here you can even use 180
+
+					}
+
+				};
+
+				//var formatter = new google.visualization.NumberFormat({pattern: '0.00%'});
+				//formatter.format(data, 1);
+
+				var chart = new google.visualization.ColumnChart(
+					document.getElementById('nsdp_chart'));
+				google.visualization.events.addListener(chart, 'ready', function () {
+					nsdp_chart_png.innerHTML = '<img src="' + chart.getImageURI() + '" alt="Number of government hospital beds in Indian states relative to Net State Domestic Product">';
+					hidePng("nsdp_chart_png");
+					showButton("nsdp_button_show");
+					hideButton("nsdp_button_hide");
+				});
+				chart.draw(data, options);
+			}
+
+			function drawPerCapita(){
+				var data = new google.visualization.arrayToDataTable([
+					['State', 'Number of hospital beds', 'Per capita income' ],
+					['Bihar',12019,31380],['Uttar Pradesh',76260,43861],['Manipur',1427,52436],['Assam',17142,54618],['Madhya Pradesh',28839,56182],['Jharkhand',10784,56737],['Jammu & Kashmir',11651,62857],['Odisha',18519,64869],['Meghalaya',4457,68202],['Tripura',4417,71666],['Rajasthan',31848,76881],['Chhattisgarh',9412,78001],['Nagaland',1880,78526],['West Bengal',78566,78903],['Mizoram',1997,85659],['Andhra Pradesh ',23138,93699],['Arunachal Pradesh',2404,103633],['Punjab',17933,114561],['Andaman & Nicobar Islands',1075,121954],['Himachal Pradesh',12399,124500],['Gujarat',32280,124678],['Telangana',20983,125832],['Tamil Nadu',77532,130197],['Karnataka',70165,132880],['Maharashtra',51446,134081],['Uttarakhand',8512,134784],['Kerala',38004,139195],['Haryana',11240,148485],['Puducherry',3569,158830],['Sikkim',1560,210394],['Chandigarh',778,225369],['Goa',3013,242745],['Delhi',24,249004]
+				]);
+
+				var options = {
+					title:'Number of hospital beds relative to per capita income of the state',
+					legend: { position: "top" },
+					//height: '100vh',
+
+					chartArea: {
+						//width: '90%'
+						top: 50,
+						height: '30%'
+					},
+
+					series: {
+						0: {targetAxisIndex: 0},
+						1: {targetAxisIndex: 1}
+					},
+
+					vAxes: {
+						0: {
+							title: 'Number of hospital beds',
+							gridlines: {
+								count: 5
+							}
+						},
+						1: {
+							title: 'Per capita income',
+							gridlines: {
+								count: 5
+							}
+					}
+
+					},
+
+
+					hAxis: {
+						showTextEvery:1,
+						textPosition: 'out',
+						slantedText:true,
+						slantedTextAngle:90 // here you can even use 180
+
+					}
+
+				};
+
+				//var formatter = new google.visualization.NumberFormat({pattern: '0.00%'});
+				//formatter.format(data, 1);
+
+				var chart = new google.visualization.ColumnChart(
+					document.getElementById('per_capita_chart'));
+				google.visualization.events.addListener(chart, 'ready', function () {
+					per_capita_chart_png.innerHTML = '<img src="' + chart.getImageURI() + '" alt="Number of government hospital beds in Indian states relative to per capita income of states">';
+					hidePng("per_capita_chart_png");
+					showButton("per_capita_button_show");
+					hideButton("per_capita_button_hide");
+				});
+
+				chart.draw(data, options);
+			}
+
+			function drawPopulation(){
+				var data = new google.visualization.arrayToDataTable([
+					['State', 'Number of hospital beds', 'Population' ],
+					['Andaman & Nicobar Islands',1075,419978],['Sikkim',1560,671720],['Chandigarh',778,1126705],['Mizoram',1997,1205974],['Puducherry',3569,1375592],['Arunachal Pradesh',2404,1528296],['Goa',3013,1542750],['Nagaland',1880,2189297],['Manipur',1427,3008546],['Meghalaya',4457,3276323],['Tripura',4417,4057847],['Himachal Pradesh',12399,7316708],['Uttarakhand',8512,11090425],['Jammu & Kashmir',11651,13635010],['Delhi',24,18345784],['Haryana',11240,27388008],['Chhattisgarh',9412,28566990],['Punjab',17933,29611935],['Assam',17142,34586234],['Kerala',38004,35330888],['Jharkhand',10784,37329128],['Telangana',20983,38472769],['Odisha',18519,45429399],['Andhra Pradesh ',23138,52883163],['Gujarat',32280,63907200],['Karnataka',70165,66165886],['Tamil Nadu',77532,76481545],['Rajasthan',31848,78230816],['Madhya Pradesh',28839,82342793],['West Bengal',78566,97694960],['Bihar',12019,119461013],['Maharashtra',51446,120837347],['Uttar Pradesh',76260,228959599]
+
+				]);
+
+				var options = {
+					title:'Number of hospital beds relative to population of the state',
+					legend: { position: "top" },
+					//height: '100vh',
+
+					chartArea: {
+						//width: '90%'
+						top: 50,
+						height: '30%'
+					},
+
+					series: {
+						0: {targetAxisIndex: 0},
+						1: {targetAxisIndex: 1}
+					},
+
+					vAxes: {
+						0: {
+							title: 'Number of hospital beds',
+							gridlines: {
+								count: 5
+							}
+						},
+						1: {
+							title: 'Population',
+							gridlines: {
+								count: 5
+							}
+					}
+
+					},
+
+
+					hAxis: {
+						showTextEvery:1,
+						textPosition: 'out',
+						slantedText:true,
+						slantedTextAngle:90 // here you can even use 180
+
+					}
+
+				};
+
+				//var formatter = new google.visualization.NumberFormat({pattern: '0.00%'});
+				//formatter.format(data, 1);
+
+				var chart = new google.visualization.ColumnChart(
+					document.getElementById('population_chart'));
+				google.visualization.events.addListener(chart, 'ready', function () {
+					population_chart_png.innerHTML = '<img src="' + chart.getImageURI() + '" alt="Number of government hospital beds in Indian states relative to state population">';
+					hidePng("population_chart_png");
+					showButton("population_button_show");
+					hideButton("population_button_hide");
+				});
+
+				chart.draw(data, options);
+			}
+
+			function drawExpense(){
+				var data = new google.visualization.arrayToDataTable([
+					['State', 'Number of hospital beds', 'Public Health Expense' ],
+					['Chandigarh',778,422.6],['Andaman & Nicobar Islands',1075,340.71],['Manipur',1427,604.56],['Sikkim',1560,363.66],['Nagaland',1880,616.5],['Mizoram',1997,555.86],['Arunachal Pradesh',2404,1119.9],['Goa',3013,960.15],['Puducherry',3569,526.94],['Tripura',4417,736.47],['Meghalaya',4457,763.96],['Uttarakhand',8512,2247.18],['Chhattisgarh',9412,4487.2],['Jharkhand',10784,3129.26],['Haryana',11240,4384.92],['Jammu & Kashmir',11651,3545.49],['Bihar',12019,6668.58],['Himachal Pradesh',12399,2054.47],['Assam',17142,5377.04],['Punjab',17933,3637.88],['Odisha',18519,5751.46],['Telangana',20983,6391.43],['Andhra Pradesh ',23138,7429.93],['Delhi',24383,5902.76],['Madhya Pradesh',28839,8065.12],['Rajasthan',31848,9814.34],['Gujarat',32280,8816.47],['Kerala',38004,6882.47],['Maharashtra',51446,12225.08],['Karnataka',70165,7229.56],['Uttar Pradesh',76260,18967.15],['Tamil Nadu',77532,9976.19],['West Bengal',78566,7921.2]
+
+				]);
+
+				var options = {
+					title:'Number of hospital beds relative to public health expense (crores) of the state',
+					legend: { position: "top" },
+					//height: '100vh',
+
+					chartArea: {
+						//width: '90%'
+						top: 50,
+						height: '30%'
+					},
+
+					series: {
+						0: {targetAxisIndex: 0},
+						1: {targetAxisIndex: 1}
+					},
+
+					vAxes: {
+						0: {
+							title: 'Number of hospital beds',
+							gridlines: {
+								count: 5
+							}
+						},
+						1: {
+							title: 'Public health expense',
+							gridlines: {
+								count: 5
+							}
+					}
+
+					},
+
+
+					hAxis: {
+						showTextEvery:1,
+						textPosition: 'out',
+						slantedText:true,
+						slantedTextAngle:90 // here you can even use 180
+
+					}
+
+				};
+
+				//var formatter = new google.visualization.NumberFormat({pattern: '0.00%'});
+				//formatter.format(data, 1);
+				var chart = new google.visualization.ColumnChart(
+					document.getElementById('expense_chart'));
+				google.visualization.events.addListener(chart, 'ready', function () {
+					expense_chart_png.innerHTML = '<img src="' + chart.getImageURI() + '" alt="Number of government hospital beds in Indian states relative to public healthcare expenditure">';
+					hidePng("expense_chart_png");
+					showButton("expense_button_show");
+					hideButton("expense_button_hide");
+				});
+
+				chart.draw(data, options);
+			}
+
+			function drawRatio(){
+				var data = new google.visualization.arrayToDataTable([
+					['State', 'Ratio of public health expense to number of hospital beds' ],
+					['West Bengal',0.100822238627396],['Karnataka',0.103036556687807],['Tamil Nadu',0.128671903214157],['Puducherry',0.1476435976464],['Himachal Pradesh',0.16569642713122],['Tripura',0.166735340729002],['Meghalaya',0.171406775858201],['Kerala',0.181098568571729],['Punjab',0.202859532705069],['Sikkim',0.233115384615385],['Maharashtra',0.237629358939471],['Delhi',0.242085059262601],['Uttar Pradesh',0.248716889588251],['Uttarakhand',0.264001409774436],['Gujarat',0.273124845105328],['Mizoram',0.278347521281923],['Madhya Pradesh',0.2796601823919],['Jharkhand',0.29017618694362],['Jammu & Kashmir',0.304307784739507],['Telangana',0.304600390792546],['Rajasthan',0.308161893996483],['Odisha',0.310570765160106],['Assam',0.313676350484191],['Andaman & Nicobar Islands',0.316939534883721],['Goa',0.318669100564222],['Andhra Pradesh ',0.321113752268995],['Nagaland',0.327925531914894],['Haryana',0.39011743772242],['Manipur',0.423658023826209],['Arunachal Pradesh',0.465848585690516],['Chhattisgarh',0.476753081172971],['Chandigarh',0.543187660668381],['Bihar',0.55483650886097]
+
+				]);
+
+				var options = {
+					title:'Ratio of public health expense (crores) of the state to the number of hospital beds',
+					legend: { position: "top" },
+					//height: '100vh',
+
+					chartArea: {
+						//width: '90%'
+						top: 50,
+						height: '30%'
+					},
+
+//					series: {
+//						0: {targetAxisIndex: 0},
+//						1: {targetAxisIndex: 1}
+//					},
+
+					vAxis: {
+							title: 'Ratio of public health expense to number of hospital beds',
+							gridlines: {
+								count: 5
+							}
+
+					},
+
+					hAxis: {
+						showTextEvery:1,
+						textPosition: 'out',
+						slantedText:true,
+						slantedTextAngle:90 // here you can even use 180
+
+					}
+
+				};
+
+				//var formatter = new google.visualization.NumberFormat({pattern: '0.00%'});
+				//formatter.format(data, 1);
+
+				var chart = new google.visualization.ColumnChart(
+					document.getElementById('ratio_chart'));
+				google.visualization.events.addListener(chart, 'ready', function () {
+					ratio_chart_png.innerHTML = '<img src="' + chart.getImageURI() + '" alt="Ratio of public health expenditure to number of hospital beds in Indian states">';
+					hidePng("ratio_chart_png");
+					showButton("ratio_button_show");
+					hideButton("ratio_button_hide");
+      //ratio_chart_png.innerhtml = '<img src="' + chart.getimageuri() + '">';
+					    });
+
+				chart.draw(data, options);
+			}
+
+			function hidePng(pngDivId){
+				document.getElementById(pngDivId).style.display="none";
+			}
+
+			function showPng(pngDivId){
+				document.getElementById(pngDivId).style.display="block";
+			}
+
+			function showButton(buttonId){
+				document.getElementById(buttonId).style.display="block";
+			}
+
+			function hideButton(buttonId){
+				document.getElementById(buttonId).style.display="none";
+			}
+
+		</script>
+
+		<title>Public hospital facilities in Indian states</title>
+
+	</head>
+
+	<body>
+
+		<header>
+			<img class="top_logo" src="datashri.png" alt="datashri logo" align="left" onclick="window.open('/')" >
+			<a href="/">
+				DataShri - Viewing India, via data 
+			</a>
+			<hr>
+
+		</header>
+		<h1>Level of hospital facilities in Indian states relative to income and population</h1>
+
+		<p>
+		Date: 21 March 2020<br>
+			Last update: 23 March 2020
+		</p>
+
+		<p>
+			What decides the level of public  hospital facilities in each Indian state? 
+			<br>
+			<br>
+			Is it the population of the state? Perhaps states with more people should have more hospital facilities..
+			<br>
+			Or is it perhaps related to the relative wealth of the state (as proxied by Net State Domestic Product) or its people (as proxied by the per capita income)? Maybe richer states have built more hospital facilities for their people..
+			<br>
+			Or could it perhaps be the per capita incomes - states with more rich people need fewer public hospitals? 
+			<br>
+			How about the state's public health expenditure? One would suppose that the more money a state spends, the more hospital beds it ought to have..
+
+
+
+		</p>
+		<p>
+			Let's check the data and find out. 
+			As a proxy for public hospital facilities, we use the number of beds in government-run hospitals in each state. 
+			In part, this is because this is the best low-level data we can find on this topic. 
+			Relatively serious patients are typically admitted to the hospital instead of being given a prescription in the "Out Patient Department" and sent home to recuperate. 
+			Also, at least anecdotally, hospitals seem to have at least some nursing staff and doctors dedicated to the various wards. 
+		</p>
+
+		<p id="data_sources">
+			We use the following sources of data in this analysis: 
+
+				<ul>
+					Data on NSDP and per capita income of each state is taken from <a href="https://pib.gov.in/newsite/printrelease.aspx?relid=169546">the PIB website</a> and dates to 2014-15.
+				</ul>
+
+				<ul>
+					Data on number of hospital beds in government run hospitals is taken from <a href="https://data.gov.in/resources/stateut-wise-number-government-hospital-beds-facilities-rural-and-urban-areas-reply">data.gov.in</a> and dates to 2019. 
+				</ul>
+				<ul>
+					Data on statewise population is taken from <a href="http://statisticstimes.com/demographics/population-of-indian-states.php">statisticstimes.com</a>
+				</ul>
+				<ul>
+					Data on public health expenditure is taken from <a href="https://data.gov.in/resources/state-wise-public-health-expenditure-during-2016-17-2017-18-ministry-health-and-family">data.gov.in</a>
+				</ul>
+
+		</p>
+
+		<br>
+
+		<div id="nsdp_results" class="graphics_results">
+			<h4>Number of hospital beds relative to Net State Domestic Product (NSDP)</h4>
+			<p class="chart_intro">
+				The chart below shows state NSDPs (in Crores) in ascending order. 
+				The Y-axis for NSDPs is on the right.
+				<br>
+				For each state, the total number of beds in government hospitals is shown in blue.
+				The Y-axis for the Number of beds is on the left. 
+				
+			</p>
+			
+			<div id="nsdp_chart">
+			</div>
+			<br>
+			<button class="button_png" id="nsdp_button_show" type=button onclick="
+					showPng('nsdp_chart_png');
+					hideButton('nsdp_button_show');
+					showButton('nsdp_button_hide');
+				">Show downloadable image</button> 
+
+			<button class="button_png" id="nsdp_button_hide" type=button onclick="
+					hidePng('nsdp_chart_png');
+					hideButton('nsdp_button_hide');
+					showButton('nsdp_button_show');
+				">Hide downloadable image</button>
+			<br>
+
+			<div id="nsdp_chart_png">
+			</div>
+
+			<div class="bullet_list">
+				<p>
+					<b>Looking closely at the chart, one can see that there is almost certainly some relation between the NSDP and number of hospital beds in the state.
+						Columns representing both NSDP and number of beds seem to be increasing together (The data is sorted such that the NSDPs are in ascending order).
+					</b>
+					<li>Eyeballing the graph to spot trends is always a good idea, but we also want to look at the correlation to confirm our suspicion.</li>
+					<li>Indeed, the correlation between the state NSDP and the number of government hospital beds is seen to be high at <b>0.83.</b></li>
+					<li>Looking more closely, based on ANOVA single-factor analysis with alpha 0.05, the P-value is 6.3E-06 and the F-value of 24.2 is higher than the F-critical value of 4.
+						This confirms that the strength of the correlation is significant at a confidence level of 95%. 
+
+					</li>
+
+					<br>
+					<b>So it can indeed be concluded that richer states build more medical facilities for their people. </b>
+
+					<br>
+					<br>
+					Some further minor observations from the chart above:
+					<li>
+						The states of West Bengal, Karnataka, Uttar Pradesh, Tamil Nadu seem to have a rather high number of hospitals relative to the state income. 
+					</li>
+					<li>
+						One can indeed <i>speculate</i> that the situation of West Bengal might possibly be explained by the socialist tradition of the state. 
+
+					</li>
+					<li>
+						In the case of Uttar Pradesh, it might also be <i>speculated</i> that the situation is explained by the large population combined with the relatively lower income of the state. 
+						The next chart/analysis will shed a bit more light on this point. 
+					</li>
+					
+					
+				</p>
+			</div>
+		</div>
+
+		<div id="per_capita_results" class="graphics_results">
+			<h4>Number of hospital beds relative to per capita income of each state</h4>
+			<p class="chart_intro">
+				The chart below shows state per capita income in ascending order. 
+				The Y-axis for per capita income is on the right.
+				<br>
+				For each state, the total number of beds in government hospitals is shown in blue.
+				The Y-axis for the Number of beds is on the left. 
+				
+			</p>
+			
+			<div id="per_capita_chart">
+			</div>
+			<br>
+
+			<button class="button_png" id="per_capita_button_show" type=button onclick="
+					showPng('per_capita_chart_png');
+					hideButton('per_capita_button_show');
+					showButton('per_capita_button_hide');
+				">Show downloadable image</button> 
+
+			<button class="button_png" id="per_capita_button_hide" type=button onclick="
+					hidePng('per_capita_chart_png');
+					hideButton('per_capita_button_hide');
+					showButton('per_capita_button_show');
+				">Hide downloadable image</button>
+
+			<br>
+			<div class="chart_png" id="per_capita_chart_png">
+			</div>
+
+
+
+			<div class="bullet_list">
+				<p>
+					<b>From the chart, it is not immediately obvious if there is a relation between the Per capita income of each state and the Number of hospital beds in the state.
+						The data is sorted such that the per capita incomes are in ascending order.
+					</b>
+					<li>Eyeballing the graph in this case does not seem to yield any useful results. 
+					So as the next step, we check the correlation.</li>
+					<li>The correlation between the state's per capita income and the number of government hospital beds is <b>-0.18</b></li>
+					<li>Looking more closely, based on ANOVA single-factor analysis with alpha 0.05, the P-value is 5.3E-12 and the F-value of 71.3 is greater than the F-critical value of 4.
+					</li>
+					<li>
+						This indicates a significant but weakly negative correlation between the per capita income of the state and the number of hospital beds.
+					</li>
+					<br>
+					<li>
+						This can be interpreted as: <b>to a certain extent, states with lower per capita income have higher level of government hospital facilities.</b>
+					</li>
+
+					<br>
+				</p>
+			</div>
+		</div>
+
+		<div id="population_results" class="graphics_results">
+			<h4>Number of hospital beds relative to the population of each state</h4>
+			<p class="chart_intro">
+				The chart below shows state populations in ascending order. 
+				The Y-axis for population is on the right.
+				<br>
+				For each state, the total number of beds in government hospitals is shown in blue.
+				The Y-axis for the Number of beds is on the left. 
+				
+			</p>
+			
+			<div id="population_chart">
+			</div>
+			<br>
+
+			<button class="button_png" id="population_button_show" type=button onclick="
+					showPng('population_chart_png');
+					hideButton('population_button_show');
+					showButton('population_button_hide');
+				">Show downloadable image</button> 
+
+			<button class="button_png" id="population_button_hide" type=button onclick="
+					hidePng('population_chart_png');
+					hideButton('population_button_hide');
+					showButton('population_button_show');
+				">Hide downloadable image</button>
+
+			<br>
+
+
+
+			<div id="population_chart_png">
+			</div>
+			<div class="bullet_list">
+				<p>
+					<b>Looking closely at the chart, one can see that there seems to be some relation between the state population and number of hospital beds in the state.
+						Columns representing both population and number of beds seem to be increasing somewhat together (The data is sorted such that the populations are in ascending order).
+					</b>
+					<li>Eyeballing the graph to spot trends is always a good idea, but we also want to look at the correlation to confirm our suspicion.</li>
+					<li>Indeed, the correlation between the state population and the number of government hospital beds is seen to be high at <b>0.77.</b></li>
+					<li>Looking more closely, based on ANOVA single-factor analysis with alpha 0.05, the P-value is 1.3E-05 and the F-value of 22.3 is higher than the F-critical value of 4.
+						This confirms that the strength of the correlation is significant at a confidence level of 95%. 
+
+					</li>
+					<br>
+
+					<b>So it can indeed be concluded that states with more people build more medical facilities for their people. </b>
+					
+
+					<br>
+				</p>
+			</div>
+		</div>
+
+		<div id="expense_results" class="graphics_results">
+			<h4>Number of hospital beds relative to the public health expenditure of each state</h4>
+			<p class="chart_intro">
+				The chart below shows the number of hospital beds per state in ascending order. 
+				The Y-axis for public health expense is on the right.
+				<br>
+				The Y-axis for the Number of hospital beds is on the left. 
+				
+			</p>
+			<div id="expense_chart">
+			</div>
+			<br>
+
+			<button class="button_png" id="expense_button_show" type=button onclick="
+					showPng('expense_chart_png');
+					hideButton('expense_button_show');
+					showButton('expense_button_hide');
+				">Show downloadable image</button> 
+
+			<button class="button_png" id="expense_button_hide" type=button onclick="
+					hidePng('expense_chart_png');
+					hideButton('expense_button_hide');
+					showButton('expense_button_show');
+				">Hide downloadable image</button>
+
+			<br>
+
+			<div id="expense_chart_png">
+			</div>
+			<div class="bullet_list">
+				<p>
+					<b>Graphically, the chart displays decent correlation between the number of hospital beds and the public health expenditure of the state.	</b>
+					<li>Compared to the other states, the states of Bihar and Chattisgarh seem to have a higher health expense relative to the number of hospital beds.
+					</li>
+					<li>The states of Karnataka, Tamil Nadu and West Bengal appear to have much more hospital beds relative to their public health expense - compared to the other states.</li>
+
+					<li>The correlation between the state public health expenditure and the number of government hospital beds is very high at <b>0.83</b></li>
+					<li>Looking more closely, based on ANOVA single-factor analysis with alpha 0.05, the P-value is 0.0002 and the F-value of 15.8 is higher than the F-critical value of 4.
+						This confirms that the strength of the correlation is significant at a confidence level of 95%. 
+					</li>
+					<br>
+
+					<b>So it can be concluded that states with higher public health expenditures build more medical facilities for their people. But there are significant variations in the data. </b>
+
+					<br>
+					<br>
+
+
+					To look into these variations, we compute the "ratio" of public health expenditure to the number of hospital beds. The lower this ratio, the less money the state has spent for each hospital bed.
+
+					<br>
+
+		
+
+				</p>
+			</div>
+		</div>
+		
+		<div id="ratio_results" class="graphics_results">
+			<h4>Ratio of Public health expenditure (in crores) to number of hospital beds</h4>
+			<p class="chart_intro">
+			</p>
+	
+			<div id="ratio_chart">
+			</div>
+
+			<br>
+
+			<button class="button_png" id="ratio_button_show" type=button onclick="
+					showPng('ratio_chart_png');
+					hideButton('ratio_button_show');
+					showButton('ratio_button_hide');
+				">Show downloadable image</button> 
+
+			<button class="button_png" id="ratio_button_hide" type=button onclick="
+					hidePng('ratio_chart_png');
+					hideButton('ratio_button_hide');
+					showButton('ratio_button_show');
+				">Hide downloadable image</button>
+
+			<br>
+
+
+			<div id="ratio_chart_png">
+			</div>
+
+			<div class="bullet_list">
+				<p>
+					The ratio of public health expenditure (in crores) to the number of hospital beds varies from around 0.1 in the case of West Bengal and Karnataka to around 0.5 in the case of Bihar and Chandigarh. We have no explanation for why this is so. 
+					</li>
+
+				</p>
+			</div>
+		</div>
+
+		<div id="conclusion">
+			<h4>In conclusion:</h4>
+			<p>
+				<ul>Richer states build more hospitals for their people.</ul>
+				<ul>More populous states build more hospitals for their people.</ul>
+				<ul>To some extent, states with lower per capita incomes have more public hospitals.</ul>
+				<ul>States that spend more on public health have more government hospital beds. </ul>
+				<ul>There is almost 5x variation in the ratio of public health expenditure to the number of hospital beds per state.</ul>
+			</p>
+
+			
+		</div>
+
+
+		<footer>
+			<hr>
+			&copy 2020: 
+			All content on these pages is the intellectual property of the creators and may not be reproduced without attribution. 
+			All data sources used herein are publicly available.			
+			We look forward to your comments, criticism, suggestions, or ideas for new topics you want us to cover.  
+			You can write to us at <b>admin</b> at this domain name.
+		</footer>
+		
+	</body>
+
+
+</html>

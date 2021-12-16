@@ -1,0 +1,804 @@
+<html>
+	<head>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<link rel="stylesheet" href="datashristyles.css">
+		<link rel="canonical" href="datashri.com/indian_corona_cases_per_state_factors.html" />
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width">
+		<meta name="description" content="COVID19 cases in Indian states relative to various factors such as Net State Domestic Product, level of foreign remittances, level of foreign tourists, and per 10 crore population, shown with bar charts" />
+
+		<script>
+			google.charts.load('current', {'packages':['corechart']});
+			google.charts.setOnLoadCallback(drawTotal);
+			google.charts.setOnLoadCallback(drawTotalPer10cr);
+			google.charts.setOnLoadCallback(drawTotalPer10crLadakh);
+			google.charts.setOnLoadCallback(drawRemittances);
+			google.charts.setOnLoadCallback(drawNdsp);
+			google.charts.setOnLoadCallback(drawRatio);
+
+			var params ;
+			var params1 ;
+
+			function drawTotal(){
+				var data = new google.visualization.arrayToDataTable([
+					['State', 'Total number of cases' ],
+					['Chhattisgarh',1],['Puduchery',1],['Odisha',2],['Himachal Pradesh',2],['Uttarakhand',3],['West Bengal',4],['Madhya Pradesh ',4],['Andhra Pradesh',5],['Tamil Nadu',6],['Chandigarh',6],['Jammu & Kashmir',7],['Ladakh',13],['Gujarat',14],['Punjab',15],['Karnataka',19],['Telangana',21],['Haryana',22],['Rajasthan',23],['Uttar Pradesh',28],['Delhi',30],['Kerala',52],['Maharashtra',64]
+				]);
+
+				var options = {
+					title:'Total number of Covid-19 cases in Indian states (22 Mar 2020)',
+					legend: { position: "none" },
+					height: '100vh',
+
+					chartArea: {
+						//width: '90%'
+						top: 50,
+						height: '30%'
+					},
+
+					vAxis: {
+						title: 'Number of cases',
+						gridlines: {
+							count: 5
+						}
+						//format: 'percent',
+						//maxValue: 1,
+						//minValue: .9
+					},
+					hAxis: {
+						showTextEvery:1,
+						textPosition: 'out',
+						slantedText:true,
+						slantedTextAngle:90 // here you can even use 180
+
+					}
+
+				};
+
+				//var formatter = new google.visualization.NumberFormat({pattern: '0.00%'});
+				//formatter.format(data, 1);
+
+				var chart = new google.visualization.ColumnChart(
+					document.getElementById('totalcases_chart'));
+
+				google.visualization.events.addListener(chart, 'ready', function () {
+					totalcases_chart_png.innerHTML = '<img src="' + chart.getImageURI() + '" alt="Number of COVID19 cases in India per state">';
+					hidePng("totalcases_chart_png");
+					showButton("totalcases_button_show");
+					hideButton("totalcases_button_hide");
+				});
+				chart.draw(data, options);
+			}
+
+			function drawTotalPer10cr(){
+				var data = new google.visualization.arrayToDataTable([
+					['State', 'Total number of cases', 'Cases per 10 crore population' ],
+					['Chhattisgarh',1,3.5005438094808],['West Bengal',4,4.09437702825202],['Odisha',2,4.40243552418556],['Madhya Pradesh ',4,4.85774146621429],['Tamil Nadu',6,7.84502980424886],['Andhra Pradesh',5,9.4548051144369],['Uttar Pradesh',28,12.2292317606653],['Gujarat',14,21.906764808973],['Uttarakhand',3,27.0503610096096],['Himachal Pradesh',2,27.3346975169707],['Karnataka',19,28.7157040412033],['Rajasthan',23,29.4001790803256],['Punjab',15,50.6552509993015],['Jammu & Kashmir',7,51.3384295281045],['Maharashtra',64,52.9637579679733],['Telangana',21,54.5840617814642],['Puduchery',1,72.6959738061867],['Haryana',22,80.3271271134432],['Kerala',52,147.179997287359],['Delhi',30,163.525309139146],['Chandigarh',6,532.526260201206],['Ladakh',13,4744.52554744526]
+				]);
+
+				var options = {
+					title:'Number of Covid-19 cases in Indian states per 10 crore population (22 Mar 2020)',
+					legend: { position: "top" },
+					height: '100vh',
+
+					chartArea: {
+						//width: '90%'
+						top: 50,
+						height: '30%'
+					},
+
+					vAxis: {
+						title: 'Number of cases',
+						gridlines: {
+							count: 5
+						}
+						//format: 'percent',
+						//maxValue: 1,
+						//minValue: .9
+					},
+					hAxis: {
+						showTextEvery:1,
+						textPosition: 'out',
+						slantedText:true,
+						slantedTextAngle:90 // here you can even use 180
+
+					}
+				};
+
+				var formatter = new google.visualization.NumberFormat({pattern: '0.000'});
+				formatter.format(data, 2);
+
+				var chart = new google.visualization.ColumnChart(
+					document.getElementById('totalper10cr_chart'));
+				google.visualization.events.addListener(chart, 'ready', function () {
+					totalper10cr_chart_png.innerHTML = '<img src="' + chart.getImageURI() + '" alt="Number of COVID19 cases in India per state per 10 crore">';
+
+					hidePng("totalper10cr_chart_png");
+					showButton("totalper10cr_button_show");
+					hideButton("totalper10cr_button_hide");
+				});
+
+				chart.draw(data, options);
+			}
+
+			function drawTotalPer10crLadakh(){
+				var data = new google.visualization.arrayToDataTable([
+					['State', 'Total number of cases', 'Cases per 10 crore population' ],
+					['Chhattisgarh',1,3.5005438094808],['West Bengal',4,4.09437702825202],['Odisha',2,4.40243552418556],['Madhya Pradesh ',4,4.85774146621429],['Tamil Nadu',6,7.84502980424886],['Andhra Pradesh',5,9.4548051144369],['Uttar Pradesh',28,12.2292317606653],['Gujarat',14,21.906764808973],['Uttarakhand',3,27.0503610096096],['Himachal Pradesh',2,27.3346975169707],['Karnataka',19,28.7157040412033],['Rajasthan',23,29.4001790803256],['Punjab',15,50.6552509993015],['Jammu & Kashmir',7,51.3384295281045],['Maharashtra',64,52.9637579679733],['Telangana',21,54.5840617814642],['Puduchery',1,72.6959738061867],['Haryana',22,80.3271271134432],['Kerala',52,147.179997287359],['Delhi',30,163.525309139146]
+				]);
+
+				var options = {
+					title:'Total number of Covid-19 cases in Indian states (22 Mar 2020) - excluding Ladakh and Chandigarh',
+					legend: { position: "top" },
+					height: '100vh',
+
+					chartArea: {
+						//width: '90%'
+						top: 50,
+						height: '30%'
+					},
+
+					vAxis: {
+						title: 'Number of cases',
+						gridlines: {
+							count: 5
+						}
+						//format: 'percent',
+						//maxValue: 1,
+						//minValue: .9
+					},
+					hAxis: {
+						showTextEvery:1,
+						textPosition: 'out',
+						slantedText:true,
+						slantedTextAngle:90 // here you can even use 180
+
+					}
+				};
+
+				var formatter = new google.visualization.NumberFormat({pattern: '0.000'});
+				formatter.format(data, 2);
+
+				var chart = new google.visualization.ColumnChart(
+					document.getElementById('totalper10crladakh_chart'));
+
+				google.visualization.events.addListener(chart, 'ready', function () {
+					totalper10crladakh_chart_png.innerHTML = '<img src="' + chart.getImageURI() + '" alt="Number of COVID19 cases in India per state per 10 crore">';
+
+					hidePng("totalper10crladakh_chart_png");
+					showButton("totalper10crladakh_button_show");
+					hideButton("totalper10crladakh_button_hide");
+
+				});
+
+				chart.draw(data, options);
+			}
+
+			function drawRemittances(){
+				var data = new google.visualization.arrayToDataTable([
+					['State', 'Total number of cases', 'Level of foreign remittances' ],
+					['Ladakh',13,0],['Chhattisgarh',1,0.1],['Himachal Pradesh',2,0.1],['Uttarakhand',3,0.2],['Jammu & Kashmir',7,0.2],['Puduchery',1,0.2],['Chandigarh',6,0.2],['Odisha',2,0.4],['Madhya Pradesh ',4,0.4],['Haryana',22,0.8],['Rajasthan',23,1.2],['Punjab',15,1.7],['Andhra Pradesh',5,2],['Telangana',21,2],['Gujarat',14,2.1],['West Bengal',4,2.7],['Uttar Pradesh',28,3.1],['Delhi',30,5.9],['Tamil Nadu',6,8],['Karnataka',19,15],['Maharashtra',64,16.7],['Kerala',52,19]
+				]);
+
+				var options = {
+					title:'Number of cases relative to level of foreign remittances to the state',
+					legend: { position: "top" },
+					//height: '100vh',
+
+					chartArea: {
+						//width: '90%'
+						top: 50,
+						height: '30%'
+					},
+
+					series: {
+						0: {targetAxisIndex: 0},
+						1: {targetAxisIndex: 1}
+					},
+
+					vAxes: {
+						0: {
+							title: 'Number of cases',
+							gridlines: {
+								count: 5
+							}
+						},
+						1: {
+							title: 'Level of foreign remittances',
+							gridlines: {
+								count: 5
+							}
+					}
+
+					},
+
+
+					hAxis: {
+						showTextEvery:1,
+						textPosition: 'out',
+						slantedText:true,
+						slantedTextAngle:90 // here you can even use 180
+
+					}
+
+				};
+
+				//var formatter = new google.visualization.NumberFormat({pattern: '0.00%'});
+				//formatter.format(data, 1);
+
+				var chart = new google.visualization.ColumnChart(
+					document.getElementById('foreign_remittance_chart'));
+				google.visualization.events.addListener(chart, 'ready', function () {
+					      foreign_remittance_chart_png.innerHTML = '<img src="' + chart.getImageURI() + '" alt="Number of COVID19 cases in India per state relative to foreign remittances">';
+
+						hidePng("foreign_remittance_chart_png");
+						showButton("foreign_remittance_button_show");
+						hideButton("foreign_remittance_button_hide");
+					    });
+				chart.draw(data, options);
+			}
+
+			function drawNdsp(){
+				var data = new google.visualization.arrayToDataTable([
+					['State', 'Total number of cases', 'Net State Domestic Product' ],
+					['Puduchery',1,21776],['Chandigarh',6,25061],['Ladakh',13,83217],['Jammu & Kashmir',7,83217],['Himachal Pradesh',2,88196],['Uttarakhand',3,142628],['Chhattisgarh',1,211016],['Odisha',2,282322],['Punjab',15,332999],['Haryana',22,395890],['Madhya Pradesh ',4,429896],['Delhi',30,447435],['Telangana',21,462636],['Andhra Pradesh',5,469909],['Kerala',52,473045],['Rajasthan',23,554783],['West Bengal',4,728974],['Gujarat',14,789949],['Karnataka',19,843918],['Uttar Pradesh',28,925437],['Tamil Nadu',6,970953],['Maharashtra',64,1572037]
+
+				]);
+
+				var options = {
+					title:'Number of cases relative to Net State Domestic Product',
+					legend: { position: "top" },
+					//height: '100vh',
+
+					chartArea: {
+						//width: '90%'
+						top: 50,
+						height: '30%'
+					},
+
+					series: {
+						0: {targetAxisIndex: 0},
+						1: {targetAxisIndex: 1}
+					},
+
+					vAxes: {
+						0: {
+							title: 'Number of cases',
+							gridlines: {
+								count: 5
+							}
+						},
+						1: {
+							title: 'Net State Domestic Product',
+							gridlines: {
+								count: 5
+							}
+					}
+
+					},
+
+
+					hAxis: {
+						showTextEvery:1,
+						textPosition: 'out',
+						slantedText:true,
+						slantedTextAngle:90 // here you can even use 180
+
+					}
+
+				};
+
+				//var formatter = new google.visualization.NumberFormat({pattern: '0.00%'});
+				//formatter.format(data, 1);
+
+				var chart = new google.visualization.ColumnChart(
+					document.getElementById('ndsp_chart'));
+				google.visualization.events.addListener(chart, 'ready', function () {
+					ndsp_chart_png.innerHTML = '<img src="' + chart.getImageURI() + '" alt="Number of COVID19 cases in India per state relative to Net State Domestic Product NSDP">';
+					hidePng("ndsp_chart_png");
+					showButton("nsdp_button_show");
+					hideButton("nsdp_button_hide");
+				});
+				chart.draw(data, options);
+			}
+
+			function drawRatio(){
+				var data = new google.visualization.arrayToDataTable([
+					['State', 'Total number of cases per 10 crore population', 'Ratio of foreign tourists to state population' ],
+					['Chhattisgarh',3.5005438094808,0.000232961190520947],['West Bengal',4.09437702825202,0.0161207394936238],['Odisha',4.40243552418556,0.00220152593257947],['Madhya Pradesh ',4.85774146621429,0.00436126814401353],['Tamil Nadu',7.84502980424886,0.0635506905620173],['Andhra Pradesh',9.4548051144369,0.00513134965092765],['Uttar Pradesh',12.2292317606653,0.0155320153229304],['Gujarat',21.906764808973,0.00702351221771569],['Uttarakhand',27.0503610096096,0.0120576984200335],['Himachal Pradesh',27.3346975169707,0.0643721192645654],['Karnataka',28.7157040412033,0.00752877396669335],['Rajasthan',29.4001790803256,0.0205796523968253],['Punjab',50.6552509993015,0.0374387894610737],['Jammu & Kashmir',51.3384295281045,0.00585001404472751],['Maharashtra',52.9637579679733,0.0420276853645256],['Telangana',54.5840617814642,0.0065460845825784],['Puduchery',72.6959738061867,0.0955275982994958],['Haryana',80.3271271134432,0.00706079098560217],['Kerala',147.179997287359,0.0309041199304133],['Delhi',163.525309139146,0.149380478915483],['Chandigarh',532.526260201206,0.028252293191208],['Ladakh',744.52554744526,0.182481751824818]
+				]);
+
+				var options = {
+					title:'Number of cases per 10 crore relative to ratio of foreign tourists to population',
+					legend: { position: "top" },
+					//height: '100vh',
+
+					chartArea: {
+						//width: '90%'
+						top: 50,
+						height: '30%'
+					},
+
+					series: {
+						0: {targetAxisIndex: 0},
+						1: {targetAxisIndex: 1}
+					},
+
+					vAxes: {
+						0: {
+							title: 'Number of cases per 10 cr',
+							gridlines: {
+								count: 5
+							}
+						},
+						1: {
+							title: 'Ratio foreign tourists to population',
+							gridlines: {
+								count: 5
+							}
+					}
+
+					},
+
+
+					hAxis: {
+						showTextEvery:1,
+						textPosition: 'out',
+						slantedText:true,
+						slantedTextAngle:90 // here you can even use 180
+
+					}
+
+				};
+
+				//var formatter = new google.visualization.NumberFormat({pattern: '0.00%'});
+				//formatter.format(data, 1);
+
+				var chart = new google.visualization.ColumnChart(
+					document.getElementById('ratio_chart'));
+				google.visualization.events.addListener(chart, 'ready', function () {
+					ratio_chart_png.innerHTML = '<img src="' + chart.getImageURI() + '" alt="Number of COVID19 cases in India per state relative to ratio of foreign tourists" >';
+
+					hidePng("ratio_chart_png");
+					showButton("ratio_button_show");
+					hideButton("ratio_button_hide");
+				});
+				chart.draw(data, options);
+			}
+
+			function hidePng(pngDivId){
+				document.getElementById(pngDivId).style.display="none";
+			}
+
+			function showPng(pngDivId){
+				document.getElementById(pngDivId).style.display="block";
+			}
+
+			function showButton(buttonId){
+				document.getElementById(buttonId).style.display="block";
+			}
+
+			function hideButton(buttonId){
+				document.getElementById(buttonId).style.display="none";
+			}
+
+
+		</script>
+
+		<title>India - COVID19 cases in Indian states relative to various factors</title>
+
+	</head>
+
+	<body>
+		<header>
+			<a href="/">
+				DataShri - Viewing India, through the lens of data
+			</a>
+			<hr>
+
+		</header>
+		<h1>Corona virus (COVID-19) cases in Indian states relative to various factors </h1>
+
+		<p>
+			Last updated: 22 March 2020
+		</p>
+		<div id="first_text">
+			<p>
+				Corona virus (COVID-19) infections seem to be picking up in India.
+				The situation in India is still better compared to many other countries around the world. 
+				However, this is no reason to relax and let go of care and caution.
+				The Indian healthcare system simply cannot handle a large scale outbreak. 
+				A mass breakout of Corona infections in India will inevitably lead to an uncontrolled situation. 
+				A disaster. 
+				Hence, preventing the spread of the infection remains the only hope. 
+			</p>
+			<p>
+				Not just a developing country like India, but no country in the world has a public healthcare system which is adequately "prepared" to handle a mass outbreak. 
+				A true large scale fatal contagious infectious disease will kill just as large a percentage of people today as did the Black Death in medieval Europe. 
+				We believe this is a rather telling tale of the "story of human progress" since the middle ages.
+				All the advancements of science and technology, and humanity still can't handle a terrible flu!
+			</p>
+			<p>
+				The government is already taking many steps to handle the situation.
+				While there is always ample scope to criticize the ineptitude of the Indian bureaucracy, its actions in this case actually seem to be effective. 
+				Within the country, there already seems to be a fair amount of caution. 
+				Most, if not all, gathering places have been shut down for a few days/weeks.
+				A number of prominent temples, offices, institutions, workplaces have either closed their doors or severely restricted the inflow of people.
+				Indeed, social isolation seems to be the new trend. 
+			</p>
+			<p>
+				Within India, different states have been differently affected. 
+				Some states report just 1-2 cases, while others have tens of victims. 
+
+				We will take a graphic look at which states are the most affected and at some other variables that might be correlated to the number of cases. 
+
+
+			</p>
+		</div>
+		<br>
+
+		<div id="total_cases" class="graphics_results">
+			<h4>Total number of infections per state</h4>
+			
+			<div id="totalcases_chart">
+			</div>
+			<br>
+
+			<button class="button_png" id="totalcases_button_show" type=button onclick="
+					showPng('totalcases_chart_png');
+					hideButton('totalcases_button_show');
+					showButton('totalcases_button_hide');
+				">Show downloadable image</button> 
+
+			<button class="button_png" id="totalcases_button_hide" type=button onclick="
+					hidePng('totalcases_chart_png');
+					hideButton('totalcases_button_hide');
+					showButton('totalcases_button_show');
+				">Hide downloadable image</button>
+
+			<br>
+			<div class="chart_png" id="totalcases_chart_png">
+			</div>
+			<div class="bullet_list">
+				<p>
+					<b>	Looking at the number of cases per state:</b>
+					<li>Maharashtra has the highest number at the time of writing - 64.</li>
+					<li>This is followed by Kerala, with 52 cases, and Delhi with 30.</li>
+					<li>UttarPradesh, Rajasthan, Haryana, have 28, 23 and 22 cases respectively.
+					</li>
+					<li>
+						Telangana, Karnataka and Punjab have 21, 19 and 15 cases respectively while Gujarat has 14. 
+					</li>
+					<li>The Union Territory of Ladakh has 13 cases. 
+						This is rather egregious considering the small population of this territory. 
+						What makes things worse is the remote location and meager facilities in this place (Ladakh).
+						The next section shows this in further detail.
+					</li>
+					<li>
+						Chattisgarh and Puducherry have 1 case each. 
+					</li>
+					
+				</p>
+			</div>
+		</div>
+
+		<div id="per10cr" class="graphics_results">
+			<h4>Total number of cases per 10 crore population</h4>
+
+			<div id="totalper10cr_chart">
+			</div>
+			<br>
+
+			<button class="button_png" id="totalper10cr_button_show" type=button onclick="
+					showPng('totalper10cr_chart_png');
+					hideButton('totalper10cr_button_show');
+					showButton('totalper10cr_button_hide');
+				">Show downloadable image</button>
+			<button class="button_png" id="totalper10cr_button_hide" type=button onclick="
+					hidePng('totalper10cr_chart_png');
+					hideButton('totalper10cr_button_hide');
+					showButton('totalper10cr_button_show');
+				">Hide downloadable image</button>
+			<br>
+
+			<div id="totalper10cr_chart_png">
+			</div>
+
+			<div class="bullet_list">
+				<p>
+					<b>	Considering the number of cases per 10 crore (100 million) of population:</b>
+					<li>This figure has been mathematically "extrapolated". </li>
+					<li><b>So for states which have a population of less than 10 crore, the extrapolated figure will be higher than the actual total number of cases in the state.</b></li>
+					<li>The country has over 342 cases in a population of 134 crore.
+						This translates to an average 25.5 per 10 crore. At the time of last update (19 March), this average figure was about 13 cases per population of 10 crore. 
+					</li>
+					<li>The Union Territory of Ladakh dwarfs the other states by a huge margin</li>
+					<li>This tiny region has a population of 2,74,000 (274,000) and 13 infected cases</li>
+					<li><b>This translates/extrapolates to a figure of over 4700 per 10 crore population. </b></li>
+					<li>Compared to this, the next highest is Chandigarh with a total of 6 cases (up from 1 case as at 19 March) - which translates to 532 per 10 crore given the population of 11,26,705 (1,126,705)</li>
+					<li>Delhi now has 163 cases per 10 crore (based on 30 cases in the population of over 1.8 crore)</li>
+				</p>
+
+				<p>
+					The Ladakh situation is particularly concerning considering the meager healthcare facilities in the state. 
+					This situation is further worsened by the region being hard-to-access during the winter months.
+				</p>
+				<p>
+					In order to be able to get a look at the other states, the next chart artificially removes the figures for Ladakh and Chandigarh
+					(the real figure for Ladakh is over 4700, and the second highest after Ladakh is Chandigarh at 532).
+				</p>
+			</div>
+
+		</div>
+
+		<div id="per10cr_excl_ladakh" class="graphics_results">
+				<h4>Total number of cases per 10 crore population - excluding Ladakh and Chandigarh</h4>
+
+				<div id="totalper10crladakh_chart">
+				</div>
+				<br>
+				<button class="button_png" id="totalper10crladakh_button_show" type=button onclick="
+					showPng('totalper10crladakh_chart_png');
+					hideButton('totalper10crladakh_button_show');
+					showButton('totalper10crladakh_button_hide');
+				">Show downloadable image</button>
+
+				<button class="button_png" id="totalper10crladakh_button_hide" type=button onclick="
+					hidePng('totalper10crladakh_chart_png');
+					hideButton('totalper10crladakh_button_hide');
+					showButton('totalper10crladakh_button_show');
+				">Hide downloadable image</button>
+
+				<br>
+				<div id="totalper10crladakh_chart_png">
+				</div>
+				
+				<div class="bullet_list">
+					<p>
+						<b>Removing the Ladakh and Chandigarh figures allows to get a better look at the rest of the states.</b>
+						
+						<li>Delhi, Kerala and Haryana have the next highest figures - with 163, 147, and 80 cases respectively per 10 crore population.</li>
+						<li>Maharashtra, which has the highest total number of cases comes in eighth with 53 cases per 10 crore population.</li>
+					</p>
+
+					<p>
+
+					</p>
+
+				</div>
+
+		</div>
+
+		<div id="foreign_remit" class="graphics_results">
+				<h4>Number of cases per state relative to foreign remittances per state </h4>
+
+
+				<div id="foreign_remittance_chart">
+				</div>
+				<br>
+
+				<button class="button_png" id="foreign_remittance_button_show" type=button onclick="
+					showPng('foreign_remittance_chart_png');
+					hideButton('foreign_remittance_button_show');
+					showButton('foreign_remittance_button_hide');
+				">Show downloadable image</button>
+
+				<button class="button_png" id="foreign_remittance_button_hide" type=button onclick="
+					hidePng('foreign_remittance_chart_png');
+					hideButton('foreign_remittance_button_hide');
+					showButton('foreign_remittance_button_show');
+				">Hide downloadable image</button>
+
+				<br>
+
+				<div id="foreign_remittance_chart_png">
+				</div>
+				
+				<div class="bullet_list">
+					<p>
+						The chart above shows the level of foreign remittances to each state in increasing order. 
+						The level of foreign remittance for each state is denoted by the percentage of the "total" incoming foreign remittance to India that each state receives.
+						
+
+						<br>
+						The Y-axis for level of foreign remittance is on the right.
+						The Y-axis for the number of cases is on the left. 
+						<br>
+
+						<li>Kerala, Maharashtra and Karnataka have the highest level of foreign remittances at 19%, 16.7% and 15% respectively.</li>
+						<li>These states also have a high number of confirmed cases.</li>
+						<li>However, the states (above) with the <i>highest</i> levels of remittance do not actually have the <i>highest</i> rates of infection.</li>
+						<li>Looking closely into the numbers, the level of foreign remittance and the number of cases have a correlation of <b>0.77</b>
+							At a confidence level of 95%, the P-value from a single-factor ANOVA analysis of the two series is 3.8E-05 while the F-value 21.2 is higher than the critical F-value of 4.1.
+
+						</li>
+						<li>So there is a definite link between the level of foreign remittances and the number of Corona cases in each state. </li>
+						<li>However, there are also glaring exceptions to the rule, as in the cases of Ladakh, Jammu Kashmir, Chandigarh, etc.</li>
+					</p>
+
+					<p>
+
+					</p>
+
+				</div>
+
+		</div>
+
+		<div id="nsdp" class="graphics_results">
+				<h4>Number of cases per state relative to Net State Domestic Product </h4>
+
+
+				<div id="ndsp_chart">
+				</div>
+				<br>
+
+				<button class="button_png" id="nsdp_button_show" type=button onclick="
+						showPng('ndsp_chart_png');
+						hideButton('nsdp_button_show');
+						showButton('nsdp_button_hide');
+					">Show downloadable image</button>
+				<button class="button_png" id="nsdp_button_hide" type=button onclick="
+						hidePng('ndsp_chart_png');
+						hideButton('nsdp_button_hide');
+						showButton('nsdp_button_show');
+					">Hide downloadable image</button>
+				<br>
+
+				<div id="ndsp_chart_png">
+				</div>
+				
+				<div class="bullet_list">
+					<p>
+						The chart above shows the Net State Domestic Product (NSDP) of each state in increasing order. 
+
+						<br>
+						The Y-axis for level of NSDP is on the right.
+						The Y-axis for the number of cases is on the left. 
+						<br>
+
+						<li>Maharashtra, Tamil Nadu, Uttar Pradesh and Karnataka have the highest NSDPs.</li>
+						<li>Some of these states also have a high number of confirmed cases.</li>
+						<li>However, with the exception of Maharashtra, the states with the highest NSDPs do not actually have the highest number of infections.</li>
+						<li>But overall, states with high NSDPs do have a number of cases. 
+						Prominent exceptions to this are the states of Tamil Nadu, West Bengal, and Andhra Pradesh which have high NSDPs but relatively low number of cases.</li>
+						<li>Looking closely into the numbers, the NSDPs and the number of cases have a correlation of <b>0.62</b>.
+							At a confidence level of 95%, the P-value from a single-factor ANOVA analysis of the two series is 8.7E-07 while the F-value 33.2 is higher than the critical F-value of 4.1.
+
+						</li>
+						<br>
+						<li>So there is a definite link between the states NSDP and the number of Corona cases in each state. </li>
+						<li>However, here too there are some exceptions to the rule, as in the cases of Madhya Pradesh, Andhra Pradesh, West Bengal and Tamil Nadu - which have relatively fewer cases relative to their NSDP, and then of course Ladakh - which has an unusually high number of cases relative to its NSDP (or anything else for that matter).</li>
+					</p>
+
+				</div>
+
+		</div>
+
+		<div id="foreign_tourists" class="graphics_results">
+				<h4>The Ladakh puzzle...</h4>
+					<p>
+						<ul>
+							Overall, the number of cases in each state seems to have some relation to some explanatory factors, as explored above. Except Ladakh. 
+						</ul>
+						<ul>
+							Ladakh has a high number of cases and the highest number of cases per 10 crore population. 
+						</ul>
+						<ul>
+							But it ranks very low in rankings of population, NSDP, foreign remittances, etc. 
+						</ul>
+						<ul>
+							Looking across various possible variables, we want to find something that might possibly explain this situation. Essentially, we are looking at a category in which Ladakh ranks high, possibly the highest. 
+						</ul>
+						<ul>
+							When it comes to the number of foreign tourists relative to the population, Ladakh takes the lead. The region has a population of about 2,74,000 and received around 50,000 foreign tourists in 2018. Assuming that this reflects a general trend, this gives it the highest ratio of foreign tourists to local population of all Indian regions.
+						</ul>
+						<ul><b>
+							So now, we want to look at the number of cases per 10 crore population relative to the ratio of foreign tourists to the state's population.
+							</b>
+						</ul>
+					</p>
+
+
+				<div id="ratio_chart">
+				</div>
+				<br>
+
+				<button class="button_png" id="ratio_button_show" type=button onclick="
+						showPng('ratio_chart_png');
+						hideButton('ratio_button_show');
+						showButton('ratio_button_hide');
+					">Show downloadable image</button>
+				<button class="button_png" id="ratio_button_hide" type=button onclick="
+						hidePng('ratio_chart_png');
+						hideButton('ratio_button_hide');
+						showButton('ratio_button_show');
+					">Hide downloadable image</button>
+			<br>
+
+			
+				<div id="ratio_chart_png">
+				</div>
+				
+				<div class="bullet_list">
+					<p>
+						The chart above shows the number of cases per 10 crore population in increasing order. Juxtaposed with it is the ratio of foreign tourists to local population. 
+						<br>
+						Since the cases per 10 crore figure for Ladakh (4744) is extremely high, it is manually adjusted down to 744 (still the highest) to bring some visibility to the other states. 
+						<br>
+						<br>
+						The Y-axis for the ratio of foreign tourists to population is on the right.
+						The Y-axis for the number of cases per 10 crore population is on the left. 
+						<br>
+						<br>
+						One can see a bit of a trend indicating that the ratio of foreign tourists to state population also seems to be somewhat in increasing order, albeit a bit sporadically. 
+
+						<li>To check if this visual trend is indeed borne out by the numbers, we look at the correlation. Indeed, the ratio of foreign tourists to state population and the number of cases per 10 crore have a strong correlation of <b>0.68</b>.  
+						</li>
+						<li>
+							We need to be sure that this correlation is meaningful. At a confidence level of 95%, the P-value from a single-factor ANOVA analysis of the two series is 0.2 while the F-value 1.7 is not higher than the critical F-value of 4.1.
+						</li>
+						<li>
+							Alas, while there is a correlation (and a seemingly strong one), the correlation is not "significant".
+
+							So it is not valid to conclude that the ratio of foreign tourists to population is a good predictor of the number of cases (per 10 crore population) in the state. 
+						</li>
+						<li>
+							But this little factoid does seem to fit the Ladakh story well... And that is a quandary often encountered in quantitative analyses. 
+						</li>
+
+						<br>
+					</p>
+
+				</div>
+
+		</div>
+
+		<div id="conclusion">
+			<h4>In conclusion:</h4>
+			<p>
+			<ul>The level of foreign remittances seems to be the best predictor of Corona cases in Indian states. 
+			</ul>
+			<ul>
+				This is in line with what one might expect - considering that the first cases have come from abroad.
+			</ul>
+			<ul>
+				However, it must be stressed that this only considers the initial cases of the infection - the Stage I and Stage II cases.
+			</ul>
+			<ul>
+				The further spread of the disease depends entirely on other factors - like taking adequate precautions. A single case can spread to the entire state if people are careless enough, and a moderate number of cases can be contained if people are careful enough.
+			</ul>
+			</p>
+
+
+
+			
+		</div>
+		<br>
+		<div id="data_sources">
+		<h4>Data sources:</h4>
+			<ul>
+				Per state infection data is taken from the <a href="https://economictimes.indiatimes.com/news/politics-and-nation/coronavirus-crisis-heres-total-number-of-confirmed-cases-in-india-as-per-health-ministry/articleshow/74589499.cms">Economic Times</a>, <a href="https://economictimes.indiatimes.com/news/politics-and-nation/indias-covid-19-count-nears-300-mark-icmr-widens-testing-net/articleshow/74748389.cms">Indiatimes</a>, <a href="https://www.firstpost.com/health/coronavirus-outbreak-live-updates-covid-19-india-noida-mumbai-bangalore-cases-count-alert-novel-latest-news-today-bird-flu-virus-janta-curfew-8175421.html">Firstpost</a>, <a href="https://swarajyamag.com/news-brief/coronavirus-latest-total-cases-in-india-now-at-fifty-six">Swarajyamag</a>, and collated manually from tweets. Since this is a dynamic topic, do let us know of any updates/errors. 
+			</ul>
+
+			<ul>
+				Population data is taken from <a href="http://statisticstimes.com/demographics/population-of-indian-states.php">Statisticstimes</a>
+			</ul>
+			<ul>
+				Tourism data is taken from <a href="https://data.gov.in/resources/percentage-shares-and-rank-different-statesuts-domestic-and-foreign-tourist-visits-during">data.gov.in</a> and <a href="https://www.livemint.com/news/india/why-are-tourists-staying-away-from-leh-ladakh-this-season-1561433264997.html">Livemint</a>
+			</ul>
+			<ul>
+				Data on foreign remittances is taken from <a href="https://www.rbi.org.in/scripts/BS_ViewBulletin.aspx?Id=17882">rbi.org.in</a>
+			</ul>
+			<ul>
+				Data on state finances is taken from <a href="https://pib.gov.in/newsite/printrelease.aspx?relid=169546">pib.gov.in</a>
+			</ul>
+		</div>
+
+		<footer>
+			<hr>
+			&copy 2020: All content on these pages is the intellectual property of the creators and may not be reproduced without attribution. All data sources used herein are publicly available. 
+		</footer>
+	</body>
+
+
+</html>
